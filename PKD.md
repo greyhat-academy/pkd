@@ -177,10 +177,17 @@ For example, private keys can be added to said archival systems in order to comp
 
 In this context, automatic archival is as easy as if the communications were secured using X.509 certificates on S/MIME.
 - Of course outgoing eMails may still require a copy to be BCC'd into an archival inbox that is encrypted with it's public key, but that can be automated in every modern eMail client.
+  - Since all commonly existing eMail clients will also store sent messages and sync them to the server using IMAP, either an unencrypted or encrypted with the Sender's Public Key Version is usually being retained.
 
 #### 6.5. Automatic Encryption of Messages
 Currently, the complexity of distribution and updating public keys prevents the use in automated Messages - including critical and confidential system reports.
 - With this standard it is possible to automatically pick and use the correct encryption key everytime without needing to know where it's being stored.
+
+#### 6.6. Application-Agnostic & Simple Solution
+The approach defined in this draft is not only agnostic of the application(s) being used but is also simple and scalable.
+- Not only will it work with real End-to-End Encryption, but also with "Man-In-The-Middle" Appliances and Tools that transparently handle encryption and/or decryption.
+  - Whilst the Authors do not endorse such means that break end-to-end principle, they do acknowledge that there may be the need and/or demand to use such methods.
+- This approach works with all common methods that use URLs for users and/or systems.
 
 ---
 ## Acknowledgements
