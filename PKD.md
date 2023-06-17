@@ -96,6 +96,7 @@ To enshure that only the correct files are submitted, administrators of said dom
   - Organizations SHOULD thus exercise due diligence for said applications and be suspicious if public keys get changed very often - espechally way before their expiry date.
 - In cases where this is not possible and/or not desireable, it is recommended to establish organization and/or application-specific management of said Public Keys.
   - In business applications, where confidentiality as well as auditability of electronic communications is necessary, public and private keys are already subject to archival requirements.
+    - Said requirements and considerations vary widely as per juristiction and thus cannot be part of the scope of this standard.
 
 #### 5.2. Redirects
 While it is not forbidden to let the PKD entry point to a different domain - for example a keyserver operated and maintained by an eMail provider or server hoster - it is discouraged to do so.
@@ -104,6 +105,8 @@ While it is not forbidden to let the PKD entry point to a different domain - for
 Additionally, the use of external monitoring in the form of "probing" outside one's company network is RECOMMENDED, but not a hard requirement.
 - We also recommend to digitally sign said files using either GnuPG/OpenPGP or X.509 Certificates.
   - In the case of X.509 Certificates, it is RECOMMENDED to use the same certificate that is being used for the domain - or at the very least from the same Certificate Authoritiy.
+
+These risks and issues are not unique to this but mitigation is out of scope for this standard.
 
 #### 5.3. Incorrect or Stale Information
 Since said information may change, it is recommended to version the Public Keys.
@@ -116,14 +119,17 @@ Since said information may change, it is recommended to version the Public Keys.
 #### 5.4. Intentionally Malformed Files
 Since the public keys are served from a publicly accessible server, applications should transparently detect absurdly large files.
 -   It stands to reason that a file double the size of the expected key size - including the header of the `pubkey` file - is malicious, and applications should not only stop the query / download of said public key, but also discard the downloaded key.
+-   Unlike regular Public Key Servers, this standard aims to deliver authoritate-by-hierachy data and thus should not allow random submissions of Public Keys, espechally external ones, to be accepted and hosted.
 
 #### 5.5. Abusive Traffic
 As the server will necessarily be publicly accessible, it is possible that that it may be subject to Distributed Denial of Service attacks (DDoS) or attempts onto these.
 - Existing mechanisms such as rate-limiting IP-Adresses or blackholing entire Subnets where necessary should be sufficient to do so.
+  - Mitigation of said attacks is out-of-scope for this standard, but considering the fact that these are in fact just plain text, DDoS attacks should not yield efficiency - espechally when a seperate [virtual] machine is being used to host said files.
 
 #### 5.6. Multi-User & Domain Environments
 As there may be scenarios where multiple domains use the same Public Key Directory, it's recommended to exercise caution and due diligence where applicable.
 - It may necessitate specific rules based off the setup in question, from not allowing to submit critical pubkeys like `security@domain.example` that are specified in the [`security.txt`](https://securitytxt.org/) file as per [[RFC9116](https://www.rfc-editor.org/rfc/rfc9116)] 
+  - Of course only administrators of the domains under their control should be allowed to submit private keys as to keep with the authoritative-by-hierachy nature in comparison to a keyserver.
 
 #### 5.7. Protecting Data in Transit 
 The use of SSL/TLS encryption is RECOMMENDED, but not a hard requirement.
@@ -132,7 +138,8 @@ The use of SSL/TLS encryption is RECOMMENDED, but not a hard requirement.
 #### 5.8. Spam
 Since Public Key based Asymetric Cryptography is a computational intensive task, Spam with per-recipient encrypted eMails is extremely unlikely to happen as it's penalizingly hard and computationally expensive to facilitate.
 - Thus it'll actually be a useful strategy to combat Spam eMails as it basically acts as a "proof of work" - alike penalty against Spammers.
-- In fact, with this proposed standard, it is hoped to make unencrypted messaging and communication a thing of the past and ease-in more users to effective end-to-end encryption.
+  - In fact, with this proposed standard, it is hoped to make unencrypted messaging and communication a thing of the past and ease-in more users to effective end-to-end encryption.
+    - Based off current hardware and developments, it's unlikely spammers will be able to keep sending unsolicited mass eMails if they are being forced to properly encrypt their eMails with individual, per-recipient keys.
 
 #### 5.9. Malicious Providers & Hosters
 Providers / Hosters may be coerced or forced into providing false public keys that could allow an attacker - regardless of legal status - to intercept and manipulate communications.
@@ -189,6 +196,9 @@ The approach defined in this draft is not only agnostic of the application(s) be
   - Whilst the Authors do not endorse such means that break end-to-end principle, they do acknowledge that there may be the need and/or demand to use such methods.
 - This approach works with all common methods that use URLs for users and/or systems.
 
+This will allow basically any application to query for matching Public Keys and automatically import them.
+- Similar to how SSL certificates are automatically being accepted due to the authoritative chain.
+
 ---
 ## Acknowledgements
 The authors acknowledge the works of Edwin Foudil, Yakov Shafranovich et. al. that made the [`security.txt`](https://securitytxt.org/) Standard that was formalized into [[RFC9116](https://www.rfc-editor.org/rfc/rfc9116)].
@@ -197,5 +207,5 @@ The authors acknowledge the works of Edwin Foudil, Yakov Shafranovich et. al. th
 
 ## Authors' Adresses
 - Kevin Karhan
-  - kevin@karhan.guru
+  - [kevin@karhan.guru](mailto:kevin+pkd-draft@karhan.guru)
 
