@@ -201,7 +201,14 @@ This will allow basically any application to query for matching Public Keys and 
 
 ---
 ## Acknowledgements
+### [security.txt](https://securitytxt.org)
 The authors acknowledge the works of Edwin Foudil, Yakov Shafranovich et. al. that made the [`security.txt`](https://securitytxt.org/) Standard that was formalized into [[RFC9116](https://www.rfc-editor.org/rfc/rfc9116)].
+###
+### [Web Key Directory](https://wiki.gnupg.org/WKD)
+As a Standard in [GnuPG](https://gnupg.org/) it's attractive, tho it does have some problems.
+- [Requiring some additional hashing](https://docs.keyoxide.org/advanced/web-key-directory/) instead of just a static URL to pull a key from may sound attractive at first glance, but [makes it unnecessarily harder](https://anders.dev/web-key-directory/) and [requires not only a webserver under the same domain](https://metacode.biz/openpgp/web-key-directory) but [results in non-human - readable filenames](https://github.com/openpgpjs/wkd-client).
+  - This is bad because it makes it harder to reliably get the correct Public Key File and transfer it.
+###
 
 ---
 
